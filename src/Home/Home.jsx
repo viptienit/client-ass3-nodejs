@@ -12,7 +12,13 @@ function Home(props) {
     const fetchData = async () => {
       const response = await ProductAPI.getAPI();
       // không hiện khi hết hàng
-     setProducts(response.filter((mov) => +mov.sl > 0).splice(0, 8));
+      const product = [];
+      for (let x = 0; x < response.length; x++) {
+        if (response[x].cl > 0) {
+          product.push(response[x]);
+        }
+      }
+      setProducts(product);
     };
 
     fetchData();
