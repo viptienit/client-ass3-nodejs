@@ -51,9 +51,7 @@ function SignIn(props) {
         } else {
           setEmailRegex(false);
           // kiểm trA xem có trùng với email nào không
-          const findUser = user.find((value) => {
-            return value.email === email;
-          });
+          const findUser = user.filter((value) => value.email === email);
           // không trùng thì sẽ trả về là email ko chính xác
           if (!findUser) {
             setErrorEmail(true);
