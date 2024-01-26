@@ -43,15 +43,20 @@ function SignIn(props) {
           setEmailRegex(false);
           // kiểm trA xem có trùng với email nào không
           const users = await UserAPI.getAllData();
-          const findUser = users.filter((value) => value.email === email);
+          let findUser;
+          for (let x = 0; x < users.length; x++) {
+            if (users[x].email === email) {
+              findUser = users[x];
+            }
+          }
           // không trùng thì sẽ trả về là email ko chính xác
-          if (!findUser.length) {
+          if (!findUser) {
             setErrorEmail(true);
             return;
           } else {
             // đưa id và mk lên server để kiểm tra
             const response = await UserAPI.postCheckUser({
-               id: findUser[0]._id,
+               id: findUser._id,
               password: password,
             });
             if (response.id) {
