@@ -16,15 +16,6 @@ function SignIn(props) {
   const [redirect, setRedirect] = useState(false);
   const dispatch = useDispatch();
   const [user, setUser] = useState([]);
-  // lấy dữ liêu các người dùng
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await UserAPI.getAllData();
-      setUser(response);
-    };
-    fetchData();
-  }, []);
-
   const onChangeEmail = (e) => {
     setEmail(e.target.value);
   };
@@ -51,9 +42,10 @@ function SignIn(props) {
         } else {
           setEmailRegex(false);
           // kiểm trA xem có trùng với email nào không
-          const findUser = user.filter((value) => value.email === email);
+          const users = await UserAPI.getAllData();
+          const findUser = users.filter((value) => value.email === email);
           // không trùng thì sẽ trả về là email ko chính xác
-          if (!findUser) {
+          if (!findUser.length) {
             setErrorEmail(true);
             return;
           } else {
