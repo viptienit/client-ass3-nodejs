@@ -59,7 +59,7 @@ function SignIn(props) {
           } else {
             // đưa id và mk lên server để kiểm tra
             const response = await UserAPI.postCheckUser({
-              id: findUser._id,
+               id: findUser[0]._id,
               password: password,
             });
             if (response.id) {
