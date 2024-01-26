@@ -44,12 +44,14 @@ function SignIn(props) {
           // kiểm trA xem có trùng với email nào không
           const users = await UserAPI.getAllData();
           let findUser;
+          console.log(findUser, users)
           for (let x = 0; x < users.length; x++) {
             if (users[x].email === email) {
               findUser = users[x];
             }
           }
           // không trùng thì sẽ trả về là email ko chính xác
+          console.log(findUser, users)
           if (!findUser) {
             setErrorEmail(true);
             return;
